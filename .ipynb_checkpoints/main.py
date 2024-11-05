@@ -5,7 +5,8 @@ from manage_flow import manage_user_flow_missing_value_stage, manage_user_flow_h
     , manage_user_flow_binning_one_hot_encoding
 from data_preprocessor_2 import visualize_columns, handle_outliers, handle_correlation, drop_columns, bin_columns \
     , one_hot_encoding
-from model_and_evaluation import choose_feature_selection_method, model_Supervised, evaluation_supervised ##supervised_learning, unsupervised_learning
+from model_and_evaluation import choose_feature_selection_method, Supervised_model, evaluation_supervised \
+    , unsupervised_model, evaluation_unsupervised   ##supervised_learning, unsupervised_learning
 
 def main():
     # Load the data
@@ -60,11 +61,12 @@ def main():
     method = choose_feature_selection_method()
 
     if method == 'supervised':
-        model, X_test, y_test, X_train, y_train = model_Supervised(df)
+        model, X_test, y_test, X_train, y_train = Supervised_model(df_one_hot)
         evaluation_supervised(model, X_test, y_test)
 
     else:
-        unsupervised_learning(df)
+        model, labels, model_choice = unsupervised_model(df_one_hot)
+        evaluation_unsupervised(df_one_hot, labels, model_choice)
 
 
     # Optionally: print final dataframe or perform further processing
