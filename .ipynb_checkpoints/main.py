@@ -18,6 +18,8 @@ def main():
 
     # Drop columns if needed
     df_drop = drop_columns(df)
+    print(df.columns)
+    print(df_drop.columns)
 
     # Change column types if needed
     df_type = change_column_type(df_drop, df)
