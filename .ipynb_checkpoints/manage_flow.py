@@ -3,8 +3,49 @@ from data_cleaning import get_date_columns, fill_missing_values
 from data_preprocessor_2 import visualize_columns, handle_outliers, one_hot_encoding, bin_columns, handle_correlation
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised, unsupervised_model, evaluation_unsupervised
 
-def manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format):
-    filled_df = df_date_format.copy()
+def manage_user_flow_changing_format(df, df_drop, df_type, df_date_format):
+
+    while True:
+        print("\nChoose which stage you want to go:")
+        print("1. Change the format of date columns")
+        print("2. Change data format again")
+        print("3. Dropping columns")
+        print("4. Continue")
+
+        again = input("Select which action you want (1, 2, 3 or 4): ").strip()
+
+        if again == '1':
+            filled_df = fill_missing_values(df_date_format) # Loop back to handle missing value again
+            break  # Go back to handle missing value
+
+        elif again == '1':
+            # Go back to Change the format of date columns
+            df_date_format = get_date_columns(df_type) # Change the format of date columns
+            return df_date_format
+
+        elif again == '2':
+            # Go back to Change data format stage
+            df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
+            df_date_format = get_date_columns(df_type) # Call get_date_columns
+            return df_date_format  # Return the modified DataFrame and continue
+
+        elif again == '3':
+            # Go back to drop columns stage
+            df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+            df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
+            df_date_format = get_date_columns(df_type) # Call get_date_columns
+            return df_date_format  # Return the modified DataFrame and continue
+
+        elif again == '4':
+            # Proceed to next stage without further changes
+            return df_date_format  # Return the modified DataFrame and continue
+        else:
+            print("Invalid input. Please select 1, 2, 3 or 4.")
+
+
+
+def manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format, filled_df):
+    # filled_df = df_date_format.copy()
 
     while True:
         print("\nChoose which stage you want to go:")
@@ -14,7 +55,7 @@ def manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format):
         print("4. Dropping columns")
         print("5. Continue")
 
-        again = input("Select which action you want (1, 2, or 3): ").strip()
+        again = input("Select which action you want (1, 2, 3, 4 or 5): ").strip()
 
         if again == '1':
             filled_df = fill_missing_values(df_date_format) # Loop back to handle missing value again

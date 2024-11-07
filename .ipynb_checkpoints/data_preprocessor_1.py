@@ -76,28 +76,28 @@ def change_column_type(df_drop, df):
                     else:
                         print(f"Column '{col}' not found in the dataframe. Please try again.")
 
-        # Offer choices to go back to drop columns stage or continue
-        while True:
-            print("\nChoose which stage you want to go:")
-            print("1. Change data format again")
-            print("2. Dropping columns")
-            print("3. Continue")
-
-            again = input("Select which action you want (1, 2, or 3): ").strip()
-
-            if again == '1':
-                # Loop back to change data format again
-                break  # Go back to changing data types
-            elif again == '2':
-                # Go back to drop columns stage
-                df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
-                df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
-                return df_type  # Return the modified DataFrame and continue
-            elif again == '3':
-                # Proceed to next stage without further changes
-                return df_type  # Return the modified DataFrame and continue
-            else:
-                print("Invalid input. Please select 1, 2, or 3.")
+        # # Offer choices to go back to drop columns stage or continue
+        # while True:
+        #     print("\nChoose which stage you want to go:")
+        #     print("1. Change data format again")
+        #     print("2. Dropping columns")
+        #     print("3. Continue")
+        #
+        #     again = input("Select which action you want (1, 2, or 3): ").strip()
+        #
+        #     if again == '1':
+        #         # Loop back to change data format again
+        #         break  # Go back to changing data types
+        #     elif again == '2':
+        #         # Go back to drop columns stage
+        #         df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+        #         df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
+        #         return df_type  # Return the modified DataFrame and continue
+        #     elif again == '3':
+        #         # Proceed to next stage without further changes
+        #         return df_type  # Return the modified DataFrame and continue
+        #     else:
+        #         print("Invalid input. Please select 1, 2, or 3.")
 
     return df_type  # Default return: proceed to the next stage with the current dataframe
 

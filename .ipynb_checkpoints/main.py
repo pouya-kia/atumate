@@ -2,7 +2,7 @@ from data_loader import load_data
 from data_preprocessor_1 import show_column_info, drop_columns, change_column_type
 from data_cleaning import get_date_columns, fill_missing_values
 from manage_flow import manage_user_flow_missing_value_stage, manage_user_flow_handle_outliers \
-    , manage_user_flow_binning_one_hot_encoding, manage_user_flow_model_and_evaluation
+    , manage_user_flow_binning_one_hot_encoding, manage_user_flow_model_and_evaluation, manage_user_flow_changing_format
 from data_preprocessor_2 import visualize_columns, handle_outliers, handle_correlation, drop_columns, bin_columns \
     , one_hot_encoding
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised \
@@ -26,11 +26,14 @@ def main():
     df_date_format = get_date_columns(df_type)
     # print(f"Date Columns: {date_columns}, Formats: {date_formats}")
 
+    # Managing Flow after changing format
+    df_date_format = manage_user_flow_changing_format(df, df_drop, df_type, df_date_format)
+
     # Fill missing values in the DataFrame
     filled_df = fill_missing_values(df_date_format)
 
     # Managing Flow after missing values
-    filled_df = manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format)
+    filled_df = manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format, filled_df)
 
     # Visualize boxplot and histogram
     visualize_columns(filled_df)
