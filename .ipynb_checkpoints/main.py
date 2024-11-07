@@ -6,7 +6,8 @@ from manage_flow import manage_user_flow_missing_value_stage, manage_user_flow_h
 from data_preprocessor_2 import visualize_columns, handle_outliers, handle_correlation, drop_columns, bin_columns \
     , one_hot_encoding
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised \
-    , unsupervised_model, evaluation_unsupervised   ##supervised_learning, unsupervised_learning
+    , unsupervised_model, evaluation_unsupervised
+
 
 def main():
     # Load the data
@@ -16,6 +17,7 @@ def main():
     # Show column info
     show_column_info(df)
 
+    # Take a copy from original data
     df_copy = df.copy()
 
     # Drop columns if needed
@@ -74,8 +76,7 @@ def main():
         evaluation_unsupervised(df_one_hot, labels, model_choice)
 
     manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, filled_df, df_outlier
-                                                           , df_drop_two, df_bin, df_one_hot)
-
+                                          , df_drop_two, df_bin, df_one_hot)
 
     # Optionally: print final dataframe or perform further processing
     print("Workflow complete. Thank you!")

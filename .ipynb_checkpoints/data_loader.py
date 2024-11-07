@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import sqlalchemy
 import re
 
@@ -39,5 +38,3 @@ def load_data(source):
         return pd.read_sql_query(sql_query, engine)
     else:
         raise ValueError("Invalid data source type.")
-
-
