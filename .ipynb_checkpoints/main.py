@@ -1,5 +1,5 @@
 from data_loader import load_data
-from data_preprocessor_1 import show_column_info, drop_columns, change_column_type
+from data_preprocessor_1 import show_column_info, drop_column, change_column_type
 from data_cleaning import get_date_columns, fill_missing_values
 from manage_flow import manage_user_flow_missing_value_stage, manage_user_flow_handle_outliers \
     , manage_user_flow_binning_one_hot_encoding, manage_user_flow_model_and_evaluation, manage_user_flow_changing_format
@@ -21,7 +21,7 @@ def main():
     df_copy = df.copy()
 
     # Drop columns if needed
-    df_drop = drop_columns(df_copy)
+    df_drop = drop_column(df_copy)
 
     # Change column types if needed
     df_type = change_column_type(df_drop, df)

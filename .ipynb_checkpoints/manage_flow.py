@@ -1,4 +1,4 @@
-from data_preprocessor_1 import drop_columns, change_column_type
+from data_preprocessor_1 import drop_column, change_column_type
 from data_cleaning import get_date_columns, fill_missing_values
 from data_preprocessor_2 import visualize_columns, handle_outliers, one_hot_encoding, bin_columns, handle_correlation
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised, unsupervised_model, evaluation_unsupervised
@@ -31,7 +31,7 @@ def manage_user_flow_changing_format(df, df_drop, df_type, df_date_format):
 
         elif again == '3':
             # Go back to drop columns stage
-            df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+            df_drop = drop_column(df)  # Drop columns and return the modified DataFrame
             df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
             df_date_format = get_date_columns(df_type) # Call get_date_columns
             return df_date_format  # Return the modified DataFrame and continue
@@ -76,7 +76,7 @@ def manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format, f
 
         elif again == '4':
             # Go back to drop columns stage
-            df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+            df_drop = drop_column(df)  # Drop columns and return the modified DataFrame
             df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
             df_date_format = get_date_columns(df_type) # Call get_date_columns
             filled_df = fill_missing_values(df_date_format) # Call fill_missing_values
@@ -135,7 +135,7 @@ def manage_user_flow_handle_outliers(df, df_drop, df_type, df_date_format, fille
 
         elif again == '5':
             # Go back to drop columns stage
-            df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+            df_drop = drop_column(df)  # Drop columns and return the modified DataFrame
             df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
             df_date_format = get_date_columns(df_type) # Call get_date_columns
             filled_df = fill_missing_values(df_date_format) # Call fill_missing_values
@@ -181,7 +181,7 @@ def manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_form
             df_outlier = handle_outliers(filled_df) # Loop back to calculate IQR and identify outliers and handle outliers
             # df_outlier = manage_user_flow_handle_outliers(df, df_drop, df_type, df_date_format, filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             return  df_one_hot # Go back to handling outlier
@@ -191,7 +191,7 @@ def manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_form
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             return  df_one_hot
@@ -203,7 +203,7 @@ def manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_form
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             return df_one_hot
@@ -216,21 +216,21 @@ def manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_form
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             return df_one_hot
 
         elif again == '7':
             # Go back to drop columns stage
-            df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+            df_drop = drop_column(df)  # Drop columns and return the modified DataFrame
             df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
             df_date_format = get_date_columns(df_type) # Call get_date_columns
             filled_df = fill_missing_values(df_date_format) # Call fill_missing_values
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             return df_one_hot
@@ -301,7 +301,7 @@ def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, 
             df_outlier = handle_outliers(filled_df) # Loop back to calculate IQR and identify outliers and handle outliers
             # df_outlier = manage_user_flow_handle_outliers(df, df_drop, df_type, df_date_format, filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             method = choose_feature_selection_method()
@@ -321,7 +321,7 @@ def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, 
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             method = choose_feature_selection_method()
@@ -343,7 +343,7 @@ def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, 
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             method = choose_feature_selection_method()
@@ -366,7 +366,7 @@ def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, 
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             method = choose_feature_selection_method()
@@ -383,14 +383,14 @@ def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, 
 
         elif again == '9':
             # Go back to drop columns stage
-            df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
+            df_drop = drop_column(df)  # Drop columns and return the modified DataFrame
             df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
             df_date_format = get_date_columns(df_type) # Call get_date_columns
             filled_df = fill_missing_values(df_date_format) # Call fill_missing_values
             visualize_columns(filled_df)
             df_outlier = handle_outliers(filled_df)
             handle_correlation(df_outlier)
-            df_drop_two = drop_columns(df_outlier)
+            df_drop_two = drop_column(df_outlier)
             df_bin = bin_columns(df_drop_two)
             df_one_hot = one_hot_encoding(df_bin)
             method = choose_feature_selection_method()

@@ -14,17 +14,9 @@ def show_column_info(df):
 
 
 # Function to ask if the user wants to drop columns and handle dropping
-def drop_columns(df):
+def drop_column(df):
     df_drop = df.copy()
     drop_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
-
-    # Loop until a valid response ("yes" or "no") is provided
-    while True:
-        drop_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
-        if drop_choice in ['yes', 'no']:
-            break
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
 
     if drop_choice == 'yes':
         while True:
