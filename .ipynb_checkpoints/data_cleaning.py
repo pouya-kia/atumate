@@ -1,5 +1,5 @@
 import pandas as pd
-from data_preprocessor_1 import drop_columns, change_column_type
+from data_preprocessor_1 import drop_column, change_column_type
 
 def get_date_columns(df_type):
     df_date_format = df_type.copy()

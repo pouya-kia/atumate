@@ -3,8 +3,8 @@ from data_preprocessor_1 import show_column_info, drop_column, change_column_typ
 from data_cleaning import get_date_columns, fill_missing_values
 from manage_flow import manage_user_flow_missing_value_stage, manage_user_flow_handle_outliers \
     , manage_user_flow_binning_one_hot_encoding, manage_user_flow_model_and_evaluation, manage_user_flow_changing_format
-from data_preprocessor_2 import visualize_columns, handle_outliers, handle_correlation, drop_columns, bin_columns \
-    , one_hot_encoding
+from data_preprocessor_2 import visualize_columns, handle_outliers, handle_correlation, bin_columns \
+    , one_hot_encoding # , drop_columns
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised \
     , unsupervised_model, evaluation_unsupervised
 
@@ -28,7 +28,6 @@ def main():
 
     # Get date columns and their formats
     df_date_format = get_date_columns(df_type)
-    # print(f"Date Columns: {date_columns}, Formats: {date_formats}")
 
     # Managing Flow after changing format
     df_date_format = manage_user_flow_changing_format(df, df_drop, df_type, df_date_format)
@@ -51,8 +50,10 @@ def main():
     # Visualize linear and non-linear correlation
     handle_correlation(df_outlier)
 
+    df_copy_1 = df_outlier.copy()
+
     # Drop columns if needed 2
-    df_drop_two = drop_columns(df_outlier)
+    df_drop_two = drop_column(df_copy_1)
 
     # Bin columns
     df_bin = bin_columns(df_drop_two)
@@ -80,7 +81,6 @@ def main():
 
     # Optionally: print final dataframe or perform further processing
     print("Workflow complete. Thank you!")
-    # print(df_one_hot.head(2))
 
 
 if __name__ == "__main__":

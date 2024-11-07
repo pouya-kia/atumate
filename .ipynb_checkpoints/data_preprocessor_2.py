@@ -282,25 +282,25 @@ def handle_correlation(df):
 
 
 # Function to ask user if they want to drop columns
-def drop_columns(df):
-    drop_col_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
-
-    if drop_col_choice == 'no':
-        print("No columns will be dropped.")
-        return df
-
-    # Ask user for the columns to drop
-    cols_to_drop = input("Enter the columns you want to drop, separated by commas (e.g., col1, col2): ").strip()
-
-    # Split the input into a list and drop the specified columns
-    cols_to_drop = [col.strip() for col in cols_to_drop.split(',')]
-
-    # Drop the columns
-    df.drop(columns=cols_to_drop, inplace=True)
-
-    print(f"Dropped columns: {', '.join(cols_to_drop)}")
-
-    return df
+# def drop_columns(df):
+#     drop_col_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
+#
+#     if drop_col_choice == 'no':
+#         print("No columns will be dropped.")
+#         return df
+#
+#     # Ask user for the columns to drop
+#     cols_to_drop = input("Enter the columns you want to drop, separated by commas (e.g., col1, col2): ").strip()
+#
+#     # Split the input into a list and drop the specified columns
+#     cols_to_drop = [col.strip() for col in cols_to_drop.split(',')]
+#
+#     # Drop the columns
+#     df.drop(columns=cols_to_drop, inplace=True)
+#
+#     print(f"Dropped columns: {', '.join(cols_to_drop)}")
+#
+#     return df
 
 
 # Function to ask user if they want to bin columns

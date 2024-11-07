@@ -16,7 +16,14 @@ def show_column_info(df):
 # Function to ask if the user wants to drop columns and handle dropping
 def drop_column(df):
     df_drop = df.copy()
-    drop_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
+
+    # Loop until a valid response ("yes" or "no") is provided
+    while True:
+        drop_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
+        if drop_choice in ['yes', 'no']:
+            break
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
 
     if drop_choice == 'yes':
         while True:
@@ -41,65 +48,40 @@ def drop_column(df):
 def change_column_type(df_drop, df):
     df_type = df_drop.copy()  # Copy dataframe to preserve original
 
-    while True:
-        all_correct = input("Are all the data types correct? (yes/no): ").strip().lower()
+    all_correct = input("Are all the data types correct? (yes/no): ").strip().lower()
 
-        if all_correct == 'yes':
-            print("Proceeding with the current data types.")
-            break
-        elif all_correct == 'no':
-            while True:
-                columns_to_change = input(
-                    "Which columns do you want to change the format for? (comma-separated, or type 'exit' to stop): ").strip().split(
-                    ',')
-                columns_to_change = [col.strip() for col in columns_to_change]
+    if all_correct == 'yes':
+        print("Proceeding with the current data types.")
+        return df_type
+    elif all_correct == 'no':
+        while True:
+            columns_to_change = input(
+                "Which columns do you want to change the format for? (comma-separated, or type 'exit' to stop): ").strip().split(
+                ',')
+            columns_to_change = [col.strip() for col in columns_to_change]
 
-                if 'exit' in columns_to_change:
-                    print("Exiting column type change.")
-                    break  # Exit the loop if the user types 'exit'
+            if 'exit' in columns_to_change:
+                print("Exiting column type change.")
+                return df_type  # Exit the loop if the user types 'exit'
 
-                for col in columns_to_change:
-                    if col in df_drop.columns:
-                        print(f"Current data type of '{col}': {df_drop[col].dtype}")
-                        new_type = input(
-                            f"What data type would you like to convert '{col}' to? (e.g., int, float, str, datetime): ").strip().lower()
+            for col in columns_to_change:
+                if col in df_drop.columns:
+                    print(f"Current data type of '{col}': {df_drop[col].dtype}")
+                    new_type = input(
+                        f"What data type would you like to convert '{col}' to? (e.g., int, float, str, datetime): ").strip().lower()
 
-                        # Apply the type change with error handling
-                        try:
-                            if new_type == 'datetime':
-                                df_type[col] = pd.to_datetime(df_type[col], errors='coerce')  # Convert to datetime
-                            else:
-                                df_type[col] = df_type[col].astype(new_type)  # Convert to other types (int, float, str)
-                            print(f"Successfully converted '{col}' to {new_type}.")
-                        except Exception as e:
-                            print(f"Error converting '{col}' to {new_type}: {e}")
-                    else:
-                        print(f"Column '{col}' not found in the dataframe. Please try again.")
-
-        # # Offer choices to go back to drop columns stage or continue
-        # while True:
-        #     print("\nChoose which stage you want to go:")
-        #     print("1. Change data format again")
-        #     print("2. Dropping columns")
-        #     print("3. Continue")
-        #
-        #     again = input("Select which action you want (1, 2, or 3): ").strip()
-        #
-        #     if again == '1':
-        #         # Loop back to change data format again
-        #         break  # Go back to changing data types
-        #     elif again == '2':
-        #         # Go back to drop columns stage
-        #         df_drop = drop_columns(df)  # Drop columns and return the modified DataFrame
-        #         df_type = change_column_type(df_drop, df)  # Call change_column_type with the updated DataFrame
-        #         return df_type  # Return the modified DataFrame and continue
-        #     elif again == '3':
-        #         # Proceed to next stage without further changes
-        #         return df_type  # Return the modified DataFrame and continue
-        #     else:
-        #         print("Invalid input. Please select 1, 2, or 3.")
+                    # Apply the type change with error handling
+                    try:
+                        if new_type == 'datetime':
+                            df_type[col] = pd.to_datetime(df_type[col], errors='coerce')  # Convert to datetime
+                        else:
+                            df_type[col] = df_type[col].astype(new_type)  # Convert to other types (int, float, str)
+                        print(f"Successfully converted '{col}' to {new_type}.")
+                    except Exception as e:
+                        print(f"Error converting '{col}' to {new_type}: {e}")
+                else:
+                    print(f"Column '{col}' not found in the dataframe. Please try again.")
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
 
     return df_type  # Default return: proceed to the next stage with the current dataframe
-
-
-
