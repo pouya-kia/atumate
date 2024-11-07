@@ -16,10 +16,10 @@ def main():
     # Show column info
     show_column_info(df)
 
+    df_copy = df.copy()
+
     # Drop columns if needed
-    df_drop = drop_columns(df)
-    print(df.columns)
-    print(df_drop.columns)
+    df_drop = drop_columns(df_copy)
 
     # Change column types if needed
     df_type = change_column_type(df_drop, df)
