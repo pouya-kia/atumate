@@ -15,10 +15,6 @@ def manage_user_flow_changing_format(df, df_drop, df_type, df_date_format):
         again = input("Select which action you want (1, 2, 3 or 4): ").strip()
 
         if again == '1':
-            filled_df = fill_missing_values(df_date_format) # Loop back to handle missing value again
-            break  # Go back to handle missing value
-
-        elif again == '1':
             # Go back to Change the format of date columns
             df_date_format = get_date_columns(df_type) # Change the format of date columns
             return df_date_format
