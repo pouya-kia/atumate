@@ -7,6 +7,7 @@ import statsmodels.api as sm
 import scipy.stats as stats
 import pandas as pd
 
+
 # Function to visualize boxplot and histogram for each column
 def visualize_columns(df):
     # Ask the user if they want to visualize the data
@@ -103,7 +104,9 @@ def handle_outliers(df):
     methods = {}
     while True:
         user_input = input(
-            "Enter the columns and methods in the format (column, method_number). (column2, method_number), ... or type 'done' to finish: ")
+            "Enter the columns and methods in the format (column, method_number). (column2, method_number) "
+            "seprate every pair parenthesis with dot.. "
+            "... or type 'done' to finish: ")
         if user_input.lower() == 'done':
             break
 
@@ -178,7 +181,7 @@ def apply_outlier_methods(df, methods, outliers_info):
             # Replace with Median/Mean
             replacement_value = df[column].mean() if input(
                 f"Replace outliers in '{column}' with mean or median? (mean/median): ").strip().lower() == 'mean' else \
-            df[column].median()
+                df[column].median()
             df[column] = np.where((df[column] < lower_bound) | (df[column] > upper_bound), replacement_value,
                                   df[column])
             print(f"Replaced outliers in column '{column}' with {replacement_value}.")
@@ -237,11 +240,12 @@ def find_strong_correlations(corr_matrix, threshold):
 
 # Function to calculate correlation and visualize
 def handle_correlation(df):
+    df_outlier = df.copy()
     # Ask user if they want to calculate and visualize correlation
     correlation_choice = input("Do you want to calculate and visualize correlations? (yes/no): ").strip().lower()
     if correlation_choice == 'no':
         print("Skipping correlation calculation and visualization.")
-        return
+        return df_outlier
 
     # Calculate the Pearson correlation matrix
     pearson_corr = df.corr(method='pearson')
