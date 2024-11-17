@@ -26,7 +26,7 @@ def get_engine_format():
 # Function to load data from different sources
 def load_data(source):
     source_type = detect_source_type(source)
-
+    
     if source_type == 'csv':
         return pd.read_csv(source)
     elif source_type == 'excel':

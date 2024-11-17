@@ -8,6 +8,7 @@ from data_preprocessor_2 import visualize_columns, handle_outliers, handle_corre
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised \
     , unsupervised_model, evaluation_unsupervised
 
+# COMMENT: use url (csv)
 
 def main():
     # Load the data
