@@ -1,6 +1,48 @@
 import pandas as pd
 import sqlalchemy
 import re
+import boto3
+from botocore.client import Config
+from io import StringIO
+
+# AWS S3 Configuration
+access_key = "t0VrBwOBGgBmgeOp"
+secret_key = "q3DR2Y6lBAhV3kW6uqUJ3ByRDqUqLaeh"
+endpoint_url = "https://c170077.parspack.net"
+bucket_name = "c170077"
+
+# S3 Client setup
+def create_s3_client(access_key, secret_key, endpoint_url):
+    """
+    Create an S3 client.
+    """
+    return boto3.client(
+        's3',
+        aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        endpoint_url=endpoint_url,
+        config=Config(signature_version='s3v4')
+    )
+
+
+def read_csv_from_s3(s3_client, bucket_name, object_name):
+    """
+    Load a CSV file from S3 and return it as a Pandas DataFrame.
+    """
+    try:
+        # Retrieve the file from the bucket
+        response = s3_client.get_object(Bucket=bucket_name, Key=object_name)
+        # Read the content of the file
+        csv_content = response['Body'].read().decode('utf-8')
+        # Parse the content as a Pandas DataFrame
+        df = pd.read_csv(StringIO(csv_content))
+        print("CSV file loaded successfully.")
+        return df
+    except s3_client.exceptions.NoSuchKey:
+        print(f"The file '{object_name}' does not exist in the bucket '{bucket_name}'.")
+    except Exception as e:
+        print(f"An error occurred while loading the file: {e}")
+
 
 # Function to detect source type
 def detect_source_type(source):
