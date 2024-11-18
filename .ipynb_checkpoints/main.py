@@ -7,8 +7,38 @@ from data_preprocessor_2 import visualize_columns, handle_outliers, handle_corre
     , one_hot_encoding # , drop_columns
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised \
     , unsupervised_model, evaluation_unsupervised
+import boto3
+from botocore.client import Config
+from io import StringIO
+import pandas as pd
 
 # COMMENT: use url (csv)
+access_key = "t0VrBwOBGgBmgeOp"
+secret_key = "q3DR2Y6lBAhV3kW6uqUJ3ByRDqUqLaeh"
+endpoint_url = "https://c170077.parspack.net"
+bucket_name = "c170077"
+object_name = "data.csv"
+
+try:
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        endpoint_url=endpoint_url,
+        config=Config(signature_version='s3v4')
+    )
+
+    response = s3.get_object(Bucket=bucket_name, Key=object_name)
+
+    csv_content = response['Body'].read().decode('utf-8')
+    df = pd.read_csv(StringIO(csv_content))
+
+    print("Data in CSV:")
+    print(df.head())
+
+except Exception as e:
+    print(f"An error occurred: {e}")
+
 
 def main():
     # Load the data
