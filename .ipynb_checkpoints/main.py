@@ -7,6 +7,7 @@ from data_preprocessor_2 import visualize_columns, handle_outliers, handle_corre
     , one_hot_encoding # , drop_columns
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised \
     , unsupervised_model, evaluation_unsupervised
+import pandas as pd
 
 def main():
     # Load the data
@@ -27,13 +28,15 @@ def main():
 
     # Load the CSV file as a DataFrame
     df = read_csv_from_s3(s3_client, bucket_name, object_name)
-
+    # df = df.to_json(orient="records")
 
     # Show column info
     show_column_info(df)
 
     # Take a copy from original data
+    df = pd.read_json(df)
     df_copy = df.copy()
+    df_copy = df_copy.to_json(orient="records")
 
     # Drop columns if needed
     df_drop = drop_column(df_copy)
@@ -47,39 +50,59 @@ def main():
     # Managing Flow after changing format
     df_date_format = manage_user_flow_changing_format(df, df_drop, df_type, df_date_format)
 
+    print(type(df), type(df_drop), type(df_type),type(df_date_format))
+
     # Fill missing values in the DataFrame
     filled_df = fill_missing_values(df_date_format)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format),type(filled_df))
 
     # Managing Flow after missing values
     filled_df = manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format, filled_df)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format),type(filled_df))
+
 
     # Visualize boxplot and histogram
     visualize_columns(filled_df)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df))
 
     # Calculate IQR and identify outliers and handle outliers
     df_outlier = handle_outliers(filled_df)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier))
 
     # Managing Flow after handling outlier
     df_outlier = manage_user_flow_handle_outliers(df, df_drop, df_type, df_date_format, filled_df, df_outlier)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier))
 
     # Visualize linear and non-linear correlation
     handle_correlation(df_outlier)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier))
 
     df_copy_1 = df_outlier.copy()
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier),type(df_copy_1))
 
     # Drop columns if needed 2
     df_drop_two = drop_column(df_copy_1)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier),
+          type(df_copy_1),type(df_drop_two))
 
     # Bin columns
     df_bin = bin_columns(df_drop_two)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier),
+          type(df_copy_1),type(df_drop_two),type(df_bin))
 
     # One-hot columns
     df_one_hot = one_hot_encoding(df_bin)
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier),
+          type(df_copy_1),type(df_drop_two),type(df_bin), type(df_one_hot))
 
     # Managing Flow after binning and one-hot-encoding
     df_one_hot = manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_format, filled_df, df_outlier
                                                            , df_drop_two, df_bin, df_one_hot)
-
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df), type(df_outlier),
+          type(df_copy_1),type(df_drop_two),type(df_bin), type(df_one_hot))
+    # -------------------------
+    # # pd.read_json(df)
+    # # df_copy.to_json(orient="records")
     # Choose model
     method = choose_feature_selection_method()
 
@@ -97,6 +120,7 @@ def main():
     # Optionally: print final dataframe or perform further processing
     print("Workflow complete. Thank you!")
 
-
+    # # pd.read_json(df)
+    # # df_copy.to_json(orient="records")
 if __name__ == "__main__":
     main()

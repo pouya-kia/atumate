@@ -10,6 +10,8 @@ import pandas as pd
 
 # Function to visualize boxplot and histogram for each column
 def visualize_columns(df):
+
+    df = pd.read_json(df)
     # Ask the user if they want to visualize the data
     visualize_choice = input(
         "Do you want to visualize the columns with boxplot and histogram? (yes/no): ").strip().lower()
@@ -39,6 +41,8 @@ def visualize_columns(df):
 
 # Function to calculate IQR and identify outliers
 def calculate_iqr_outliers(df):
+
+    df = pd.read_json(df)
     print("\nOutlier Detection using IQR:")
     print("Formula: Lower Bound = Q1 - 1.5 * IQR, Upper Bound = Q3 + 1.5 * IQR\n")
 
@@ -67,11 +71,13 @@ def calculate_iqr_outliers(df):
 
 # Function to ask user if they want to handle outliers
 def handle_outliers(df):
+
+    df = pd.read_json(df)
     df_outlier = df.copy()
     handle_choice = input("Do you want to handle outliers? (yes/no): ").strip().lower()
     if handle_choice == 'no':
         print("Skipping outlier handling.")
-        return df_outlier
+        return df_outlier.to_json(orient="records")
 
     # Show outlier detection based on IQR
     outliers_info = calculate_iqr_outliers(df_outlier)
@@ -79,7 +85,7 @@ def handle_outliers(df):
     # Ask if user wants to continue handling outliers
     handle_choice = input("Do you want to handle outliers after that seeing the results? (yes/no): ").strip().lower()
     if handle_choice == 'no':
-        return df_outlier
+        return df_outlier.to_json(orient="records")
 
     print("\nAvailable Methods for Handling Outliers:")
     print("Removal Methods:")
@@ -142,7 +148,8 @@ def handle_outliers(df):
     for column in methods.keys():
         plot_before_after_boxplot(df_original, df_outlier, column)
 
-    return df_outlier
+    return df_outlier.to_json(orient="records")
+
 
 
 # Function to apply outlier handling methods
@@ -240,12 +247,14 @@ def find_strong_correlations(corr_matrix, threshold):
 
 # Function to calculate correlation and visualize
 def handle_correlation(df):
+
+    df = pd.read_json(df)
     df_outlier = df.copy()
     # Ask user if they want to calculate and visualize correlation
     correlation_choice = input("Do you want to calculate and visualize correlations? (yes/no): ").strip().lower()
     if correlation_choice == 'no':
         print("Skipping correlation calculation and visualization.")
-        return df_outlier
+        return df_outlier.to_json(orient="records")
 
     # Calculate the Pearson correlation matrix
     pearson_corr = df.corr(method='pearson')
@@ -309,12 +318,14 @@ def handle_correlation(df):
 
 # Function to ask user if they want to bin columns
 def bin_columns(df):
+
+    df = pd.read_json(df)
     df_bin = df.copy()
     binning_choice = input("Do you want to bin any columns? (yes/no): ").strip().lower()
 
     if binning_choice == 'no':
         print("No binning will be performed.")
-        return df_bin
+        return df_bin.to_json(orient="records")
 
     # Ask user for the columns to bin
     cols_to_bin = input("Enter the columns you want to bin, separated by commas (col1, col2, e.g.): ").strip()
@@ -326,17 +337,18 @@ def bin_columns(df):
         df_bin[col + '_binned'] = pd.cut(df_bin[col], bins=num_bins, labels=[f"bin_{i + 1}" for i in range(num_bins)])
         print(f"Column {col} binned into {num_bins} bins.")
 
-    return df_bin
-
+    return df_bin.to_json(orient="records")
 
 # Function to ask user if they want to do one-hot encoding
 def one_hot_encoding(df):
+
+    df = pd.read_json(df)
     df_one_hot = df.copy()
     one_hot_choice = input("Do you want to perform one-hot encoding on any columns? (yes/no): ").strip().lower()
 
     if one_hot_choice == 'no':
         print("No one-hot encoding will be performed.")
-        return df_one_hot
+        return df_one_hot.to_json(orient="records")
 
     # Ask user for the columns to one-hot encode
     cols_to_encode = input(
@@ -348,4 +360,4 @@ def one_hot_encoding(df):
 
     print(f"One-hot encoding performed on: {', '.join(cols_to_encode)}")
 
-    return df_one_hot
+    return df_one_hot.to_json(orient="records")

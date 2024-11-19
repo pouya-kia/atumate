@@ -2,6 +2,7 @@ import pandas as pd
 
 # Function to show column descriptions and types and percent of null values for every column
 def show_column_info(df):
+    df = pd.read_json(df)
     print("Column Descriptions and Data Types:")
     print(df.info())
     print("\nMissing values for each column:")
@@ -15,6 +16,7 @@ def show_column_info(df):
 
 # Function to ask if the user wants to drop columns and handle dropping
 def drop_column(df):
+    df = pd.read_json(df)
     df_drop = df.copy()
 
     # Loop until a valid response ("yes" or "no") is provided
@@ -41,18 +43,20 @@ def drop_column(df):
     else:
         print("No columns were dropped.")
 
-    return df_drop
+    return df_drop.to_json(orient="records")
 
 
 # Function to change data type of columns if needed
 def change_column_type(df_drop, df):
+    df_drop = pd.read_json(df_drop)
     df_type = df_drop.copy()  # Copy dataframe to preserve original
 
     all_correct = input("Are all the data types correct? (yes/no): ").strip().lower()
 
     if all_correct == 'yes':
         print("Proceeding with the current data types.")
-        return df_type
+        return df_type.to_json(orient="records")
+
     elif all_correct == 'no':
         while True:
             columns_to_change = input(
@@ -84,4 +88,4 @@ def change_column_type(df_drop, df):
     else:
         print("Invalid input. Please enter 'yes' or 'no'.")
 
-    return df_type  # Default return: proceed to the next stage with the current dataframe
+    return df_type.to_json(orient="records")  # Default return: proceed to the next stage with the current dataframe

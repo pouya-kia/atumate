@@ -37,7 +37,7 @@ def read_csv_from_s3(s3_client, bucket_name, object_name):
         # Parse the content as a Pandas DataFrame
         df = pd.read_csv(StringIO(csv_content))
         print("CSV file loaded successfully.")
-        return df
+        return df.to_json(orient="records")
     except s3_client.exceptions.NoSuchKey:
         print(f"The file '{object_name}' does not exist in the bucket '{bucket_name}'.")
     except Exception as e:

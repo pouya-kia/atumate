@@ -2,6 +2,7 @@ import pandas as pd
 from data_preprocessor_1 import drop_column, change_column_type
 
 def get_date_columns(df_type):
+    df_type = pd.read_json(df_type)
     df_date_format = df_type.copy()
     print("Do you want to change the format of date columns?")
     change_date_structure = input("Enter Yes or No: ").strip().lower()
@@ -47,7 +48,7 @@ def get_date_columns(df_type):
     else:
         print("No columns chosen for formatting.")
 
-    return df_date_format
+    return df_date_format.to_json(orient="records")
 
 
 # Function to choose a method to fill missing values
@@ -94,12 +95,14 @@ def choose_fillna_method():
 
 # Function to fill missing values in the DataFrame
 def fill_missing_values(df_date_format):
+
+    df_date_format = pd.read_json(df_date_format)
     filled_df = df_date_format.copy()
 
     methods = choose_fillna_method()
 
     if not methods:
-        return filled_df  # No filling required
+        return filled_df.to_json(orient="records")  # No filling required
 
     # Check if the drop method was selected
     drop_selected = any(method == '6' for method in methods.values())
@@ -147,5 +150,5 @@ def fill_missing_values(df_date_format):
 
             # Offer choices to go back to drop columns stage or continue
 
-    return filled_df
+    return filled_df.to_json(orient="records")
 

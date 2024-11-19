@@ -4,7 +4,9 @@ from data_preprocessor_2 import visualize_columns, handle_outliers, one_hot_enco
 from model_and_evaluation import choose_feature_selection_method, supervised_model, evaluation_supervised, unsupervised_model, evaluation_unsupervised
 
 def manage_user_flow_changing_format(df, df_drop, df_type, df_date_format):
-
+    df = df.to_json(orient="records")
+    # type(df_drop)
+    # type(df_type)
     while True:
         print("\nChoose which stage you want to go:")
         print("1. Change the format of date columns")
@@ -42,6 +44,8 @@ def manage_user_flow_changing_format(df, df_drop, df_type, df_date_format):
 
 def manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format, filled_df):
     # filled_df = df_date_format.copy()
+    df = df.to_json(orient="records")
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df))
 
     while True:
         print("\nChoose which stage you want to go:")
@@ -87,7 +91,8 @@ def manage_user_flow_missing_value_stage(df, df_drop, df_type, df_date_format, f
 
 def manage_user_flow_handle_outliers(df, df_drop, df_type, df_date_format, filled_df, df_outlier):
     # df_outlier = filled_df.copy()
-
+    df = df.to_json(orient="records")
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df),type(df_outlier))
     while True:
         print("\nChoose which stage you want to go:")
         print("1. Calculate IQR and identify outliers and handle outliers")
@@ -150,6 +155,9 @@ def manage_user_flow_handle_outliers(df, df_drop, df_type, df_date_format, fille
 def manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_format, filled_df, df_outlier
                                               , df_drop_two, df_bin, df_one_hot):
     # df_outlier = filled_df.copy()
+    df = df.to_json(orient="records")
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df),type(df_outlier),
+          type(df_drop_two), type(df_bin), type(df_one_hot))
 
     while True:
         print("\nChoose which stage you want to go:")
@@ -239,6 +247,9 @@ def manage_user_flow_binning_one_hot_encoding(df, df_drop, df_type, df_date_form
 
 def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, filled_df, df_outlier
                                               , df_drop_two, df_bin, df_one_hot):
+    df = df.to_json(orient="records")
+    print(type(df), type(df_drop), type(df_type), type(df_date_format), type(filled_df),type(df_outlier),
+          type(df_drop_two), type(df_bin), type(df_one_hot))
 
     while True:
         print("\nChoose which stage you want to go:")
@@ -408,4 +419,3 @@ def manage_user_flow_model_and_evaluation(df, df_drop, df_type, df_date_format, 
 
         else:
             print("Invalid input. Please select 1, 2, 3, 4, 5, 6, 7, 8, 9 or 10.")
-
