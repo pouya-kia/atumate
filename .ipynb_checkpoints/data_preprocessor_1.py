@@ -1,91 +1,66 @@
 import pandas as pd
 
-# Function to show column descriptions and types and percent of null values for every column
+# نمایش اطلاعات ستون‌ها (فقط پیام‌ها، بدون تغییر دیتا)
 def show_column_info(df):
     df = pd.read_json(df)
-    print("Column Descriptions and Data Types:")
-    print(df.info())
-    print("\nMissing values for each column:")
-    print(df.isnull().sum())
+    messages = []
+
+    messages.append("Column Descriptions and Data Types:")
+    messages.append(str(df.dtypes))
+
+    messages.append("Missing values for each column:")
+    null_info = df.isnull().sum()
     for col in df.columns:
-        missing_percentage = ((df[col].isnull().sum()) / df.shape[0]) * 100
-        print(f"Column: {col}")
-        print(f"Missing: {missing_percentage:.2f}%")
-    print("\n")
+        missing_percentage = (null_info[col] / df.shape[0]) * 100
+        messages.append(f"Column: {col} - Missing: {missing_percentage:.2f}%")
+
+    return {
+        "messages": messages
+    }
 
 
-# Function to ask if the user wants to drop columns and handle dropping
-def drop_column(df):
+# حذف ستون‌ها
+def drop_column(df, columns_to_drop: list):
     df = pd.read_json(df)
     df_drop = df.copy()
+    messages = []
 
-    # Loop until a valid response ("yes" or "no") is provided
-    while True:
-        drop_choice = input("Do you want to drop any columns? (yes/no): ").strip().lower()
-        if drop_choice in ['yes', 'no']:
-            break
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
+    invalid_columns = [col for col in columns_to_drop if col not in df.columns]
+    if invalid_columns:
+        messages.append(f"Invalid column names: {', '.join(invalid_columns)}. Skipped.")
 
-    if drop_choice == 'yes':
-        while True:
-            columns_to_drop = input("Enter the column names you want to drop, separated by commas: ").strip().split(',')
+    valid_columns = [col for col in columns_to_drop if col in df.columns]
+    if valid_columns:
+        df_drop.drop(columns=valid_columns, inplace=True)
+        messages.append(f"Dropped columns: {', '.join(valid_columns)}.")
+    else:
+        messages.append("No valid columns to drop.")
 
-            # Validate if columns exist in the dataframe
-            invalid_columns = [col for col in columns_to_drop if col not in df_drop.columns]
-            if invalid_columns:
-                print(f"Invalid column names: {', '.join(invalid_columns)}. Please try again.")
+    return {
+        "data": df_drop.to_json(orient="records"),
+        "messages": messages
+    }
+
+# تغییر نوع داده‌ی ستون‌ها
+def change_column_type(df, type_map: dict):
+    df = pd.read_json(df)
+    df_type = df.copy()
+    messages = []
+
+    for col, new_type in type_map.items():
+        if col not in df.columns:
+            messages.append(f"Column '{col}' not found. Skipping...")
+            continue
+        try:
+            if new_type.lower() == 'datetime':
+                df_type[col] = pd.to_datetime(df_type[col], errors='coerce')
             else:
-                # Drop the valid columns
-                df_drop.drop(columns=columns_to_drop, inplace=True)
-                print(f"Dropped columns: {', '.join(columns_to_drop)}.")
-                break
-    else:
-        print("No columns were dropped.")
+                df_type[col] = df_type[col].astype(new_type)
+            messages.append(f"Successfully converted '{col}' to {new_type}.")
+        except Exception as e:
+            messages.append(f"Error converting '{col}' to {new_type}: {e}")
 
-    return df_drop.to_json(orient="records")
-
-
-# Function to change data type of columns if needed
-def change_column_type(df_drop, df):
-    df_drop = pd.read_json(df_drop)
-    df_type = df_drop.copy()  # Copy dataframe to preserve original
-
-    all_correct = input("Are all the data types correct? (yes/no): ").strip().lower()
-
-    if all_correct == 'yes':
-        print("Proceeding with the current data types.")
-        return df_type.to_json(orient="records")
-
-    elif all_correct == 'no':
-        while True:
-            columns_to_change = input(
-                "Which columns do you want to change the format for? (comma-separated, or type 'exit' to stop): ").strip().split(
-                ',')
-            columns_to_change = [col.strip() for col in columns_to_change]
-
-            if 'exit' in columns_to_change:
-                print("Exiting column type change.")
-                return df_type  # Exit the loop if the user types 'exit'
-
-            for col in columns_to_change:
-                if col in df_drop.columns:
-                    print(f"Current data type of '{col}': {df_drop[col].dtype}")
-                    new_type = input(
-                        f"What data type would you like to convert '{col}' to? (e.g., int, float, str, datetime): ").strip().lower()
-
-                    # Apply the type change with error handling
-                    try:
-                        if new_type == 'datetime':
-                            df_type[col] = pd.to_datetime(df_type[col], errors='coerce')  # Convert to datetime
-                        else:
-                            df_type[col] = df_type[col].astype(new_type)  # Convert to other types (int, float, str)
-                        print(f"Successfully converted '{col}' to {new_type}.")
-                    except Exception as e:
-                        print(f"Error converting '{col}' to {new_type}: {e}")
-                else:
-                    print(f"Column '{col}' not found in the dataframe. Please try again.")
-    else:
-        print("Invalid input. Please enter 'yes' or 'no'.")
-
-    return df_type.to_json(orient="records")  # Default return: proceed to the next stage with the current dataframe
+    return {
+        "data": df_type.to_json(orient="records"),
+        "messages": messages
+    }

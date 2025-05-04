@@ -1,18 +1,34 @@
-# Data Preprocessing and Machine Learning Workflow
+# ML Pipeline API with FastAPI
 
 ## Overview
-This project is a comprehensive data processing and machine learning workflow designed to guide users through the full cycle of data loading, cleaning, transformation, and modeling. Users can choose from a variety of options for handling missing data, scaling, encoding, and selecting models.
+This project provides a full pipeline for data preprocessing and machine learning wrapped as a RESTful API using FastAPI. It supports loading data, cleaning, feature transformation, modeling, and evaluation via a single API endpoint.
 
-### Features
-- **Data Loading**: Supports CSV, Excel, and SQL data sources.
-- **Data Cleaning**: Options for handling missing values, date formatting, and data type conversion.
-- **Data Transformation**: Column binning, one-hot encoding, and outlier handling.
-- **Data Visualization**: Histogram and boxplot visualizations to explore distributions and outliers.
-- **Machine Learning**: Supports both supervised and unsupervised learning models with flexible evaluation metrics.
+## Features
+- 🚀 Built with FastAPI for high performance
+- 🧼 Data cleaning: drop columns, fill missing values, format dates
+- 🧪 Feature processing: binning, one-hot encoding, outlier handling, correlation analysis
+- 🤖 Machine learning: supports both supervised and unsupervised models
+- 📦 Returns model metrics and logs in JSON format
+- 🔌 Ready to connect to any frontend
 
-## Requirements
+## Quick Start
 
-### Python Libraries
-Install the required libraries via `requirements.txt`:
+### Install requirements:
 ```bash
 pip install -r requirements.txt
+```
+
+### Run the API:
+```bash
+uvicorn main:app --reload
+```
+
+### Test the API:
+Visit: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+Use `POST /api/run-pipeline` with payload including:
+- `data`: JSON string of dataset
+- `config`: configuration for preprocessing and modeling steps
+
+## Example:
+See `test_payload.json` for a working example.
