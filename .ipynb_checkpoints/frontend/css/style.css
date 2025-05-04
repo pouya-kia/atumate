@@ -1,0 +1,498 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #fff;
+  background-color: rgb(15, 23, 42);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+a {
+  color: #fff;
+}
+
+img {
+  /* height: auto; */
+  max-width: 100%;
+}
+
+.object-contain {
+  object-fit: contain;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* -------------------- nav -------------------- */
+
+.navbar-head {
+  z-index: 50;
+  background-color: hsl(220.71deg 46.67% 11.76%) !important;
+  /* transition-duration: 0.3s;
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+
+  box-shadow: 0 0 #0000, 0 0 #0000, var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+
+  --tw-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color),
+    0 4px 6px -4px var(--tw-shadow-color); */
+  opacity: 0.9;
+}
+
+.img-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.logo-content {
+  margin-left: 0.75rem;
+}
+
+.navbar-item {
+  background-color: none;
+}
+
+.dropdown-menu-la {
+  overflow: hidden;
+}
+
+.btn-lang {
+  background: linear-gradient(45deg, rgb(149, 186, 147), rgb(207, 172, 47));
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.menu-list {
+  width: 53.2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-lang {
+  background: rgba(18, 84, 165, 0.408);
+  padding: 0;
+}
+
+.btn-lang-item-E,
+.btn-lang-item-F {
+  background: transparent;
+  color: #fff;
+}
+
+.lang-active {
+  background: rgba(34, 126, 240, 0.408);
+  color: #fff;
+}
+
+/* ---------------------- Header --------------------- */
+
+.header {
+  width: 100%;
+  height: calc(100vh - 65px);
+  background-image: url(../images/Machine-Learning.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* opacity: 0.6; */
+  flex-direction: column;
+}
+
+.upload-mark {
+  width: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.header-title {
+  letter-spacing: 0.05em;
+  font-size: 4.5rem;
+  padding: 0 1rem 0 1rem;
+  margin-top: 1rem;
+}
+
+.header-paragraph {
+  letter-spacing: 0.025em;
+  padding: 0 1rem 0 1rem;
+  width: calc(200% / 3);
+  margin: 1rem 0 2rem 0;
+}
+
+.btn-upload-file {
+  background: linear-gradient(45deg, rgb(149, 186, 147), rgb(207, 172, 47));
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: black;
+  padding: 0.5rem 1.25rem 0.5rem 1.25rem !important;
+}
+
+.btn-upload-file {
+  margin-top: 1rem;
+  padding: 0.45rem 1.25rem;
+  border-radius: 9999px;
+}
+
+.upload-mark {
+  transition: transform 0.15s ease-in-out;
+}
+
+.btn-upload-file:hover .upload-mark {
+  transform: rotate(-90deg);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.progress-container {
+  width: 10rem;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin-top: 1px;
+  display: none;
+}
+.progress-bar {
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    rgba(43, 71, 113, 1) 0%,
+    rgba(20, 35, 122, 1) 48%,
+    rgba(0, 71, 182, 1) 100%
+  );
+  border-radius: 5px;
+}
+
+.arrow {
+  font-size: 2rem;
+  position: relative;
+  animation-name: example;
+  animation-duration: 4s;
+  /* animation-delay: 2s; */
+  animation-iteration-count: infinite;
+}
+
+.d-hide {
+  display: none !important;
+}
+
+.d-show {
+  display: block;
+}
+
+@keyframes example {
+  0% {
+    top: -0.5rem;
+  }
+  50% {
+    top: 0.5rem;
+  }
+  100% {
+    top: -0.5rem;
+  }
+}
+
+/* ---------------------- Main --------------------- */
+
+/* ----------- About ----------- */
+
+.about {
+  max-width: 56rem;
+}
+
+.main-part {
+  margin: 1rem 0 2rem 0;
+}
+
+.about-title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  padding: 2rem 0 1rem 0;
+}
+
+.about-paragraph {
+  letter-spacing: 0.025em;
+  margin-top: 2rem;
+}
+
+/* ----------- Contact Us ----------- */
+
+.contact-us {
+  max-width: 56rem;
+  background-color: rgba(6, 58, 86, 0.363);
+  border: none;
+  border-radius: 10px;
+}
+
+.contact-us-form-btn {
+  padding: 0.5rem 4rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+label[for="email"]::after,
+label[for="message"]::after {
+  content: "*";
+  color: red;
+}
+
+/* ------------ */
+
+.contact-us-info {
+  height: 100%;
+  border-left: 1px solid gray;
+  padding: 0 0 0 2rem;
+}
+
+.contact-us-info-title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  padding: 0rem 0 1rem 0;
+}
+
+.contact-us-info-paragraph {
+  font-size: 15px;
+}
+
+.contact-input {
+  font-optical-sizing: 1.5rem;
+  background: rgba(44, 117, 207, 0.088);
+  color: var(--mainYellow) !important;
+  border: 0.03rem solid rgba(52, 112, 186, 0.381);
+}
+
+textarea {
+  height: 7rem !important;
+}
+
+.contact-input:focus {
+  background: transparent;
+}
+
+/**/
+
+/* .icons {
+  display: inline-flex;
+} */
+.icons a {
+  margin: 0 25px;
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  position: relative;
+}
+.icons a .layer {
+  width: 25px;
+  height: 25px;
+  transition: transform 0.3s;
+}
+.icons a:hover .layer {
+  transform: rotate(-35deg) skew(20deg);
+}
+.icons a .layer span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+.icons a .layer span.fab {
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+}
+.icons a:hover .layer span:nth-child(1) {
+  opacity: 0.2;
+}
+.icons a:hover .layer span:nth-child(2) {
+  opacity: 0.4;
+  transform: translate(5px, -5px);
+}
+.icons a:hover .layer span:nth-child(3) {
+  opacity: 0.6;
+  transform: translate(10px, -10px);
+}
+.icons a:hover .layer span:nth-child(4) {
+  opacity: 0.8;
+  transform: translate(15px, -15px);
+}
+.icons a:hover .layer span:nth-child(5) {
+  opacity: 1;
+  transform: translate(20px, -20px);
+}
+.icons a:nth-child(1) .layer span,
+.icons a:nth-child(1) .text {
+  color: #4267b2;
+  border-color: #4267b2;
+}
+.icons a:nth-child(2) .layer span,
+.icons a:nth-child(2) .text {
+  color: #1da1f2;
+  border-color: #1da1f2;
+}
+.icons a:nth-child(3) .layer span,
+.icons a:nth-child(3) .text {
+  color: #e1306c;
+  border-color: #e1306c;
+}
+.icons a:nth-child(4) .layer span,
+.icons a:nth-child(4) .text {
+  color: #2867b2;
+  border-color: #2867b2;
+}
+.icons a:nth-child(5) .layer span,
+.icons a:nth-child(5) .text {
+  color: #ff0000;
+  border-color: #ff0000;
+}
+.icons a:hover:nth-child(1) .layer span {
+  box-shadow: -1px 1px 3px #4267b2;
+}
+.icons a:hover:nth-child(2) .layer span {
+  box-shadow: -1px 1px 3px #1da1f2;
+}
+.icons a:hover:nth-child(3) .layer span {
+  box-shadow: -1px 1px 3px #e1306c;
+}
+.icons a:hover:nth-child(4) .layer span {
+  box-shadow: -1px 1px 3px #2867b2;
+}
+.icons a:hover:nth-child(5) .layer span {
+  box-shadow: -1px 1px 3px #ff0000;
+}
+.icons a .text {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  opacity: 0;
+  font-weight: 500;
+  transform: translateX(-50%);
+  transition: bottom 0.3s ease, opacity 0.3s ease;
+}
+.icons a:hover .text {
+  bottom: -35px;
+  opacity: 1;
+}
+
+/**/
+
+/* ---------------------- Footer --------------------- */
+
+.footer {
+  border-top: 1px solid rgb(31, 41, 55);
+  height: 5rem;
+  width: 100%;
+}
+
+.footer-content {
+  width: 85%;
+}
+
+/* ------------------------------------------------------------ */
+
+@media (max-width: 992px) {
+  .contact-us-part {
+    background-color: rgba(6, 58, 86, 0.363);
+    border: none;
+    border-radius: 10px;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-areas: "form info";
+  }
+}
+
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 10vw;
+  }
+  .contact-us-info {
+    border: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 30px;
+  }
+
+  .btn-contact-me {
+    display: none;
+  }
+
+  .menu {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin: 1rem 0 0 0;
+  }
+}
+
+/* ----------- Modal -------------- */
+
+.modal-content-class {
+  background-color: hsl(220.71deg 46.67% 11.76%) !important;
+}
+
+.btn-modal-close {
+  background: rgba(18, 84, 165, 0.408);
+  color: #fff;
+}
+
+.btn-modal-active {
+  background: rgba(34, 126, 240, 0.408);
+  color: #fff;
+}
+
+.btn-close-modal {
+  font-size: 1.6rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ------- */
+
+.btn-log {
+  /* background: linear-gradient(45deg, rgb(149, 186, 147), rgb(207, 172, 47)); */
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  /* padding: 0.5rem 1rem 0.5rem 1rem;  */
+  border-radius: 0.5rem;
+}
+
+.btn-item-up,
+.btn-item-in {
+  background: rgba(34, 126, 240, 0.408);
+  color: #fff;
+  transition: all 0.4s ease-in-out;
+}
+
+.btn-item-up {
+  background: transparent;
+  color: #fff;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  margin-left: 1rem;
+}
+
+.btn-item-in {
+  /* background: transparent; */
+  color: #fff;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.btn-item-up:hover,
+.btn-item-in:hover {
+  background: rgba(34, 126, 240, 0.408);
+  color: #fff;
+}
+
+.mark {
+  background: transparent;
+}

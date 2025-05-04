@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/info_style.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <title>Info | MachineLearning</title>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <table class="table table-hover table-dark table-info rounded">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Column</th>
+            <th scope="col">Non-Null Count</th>
+            <th scope="col">Dtype</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end btn-info-answer">
+        <button type="button" class="btn btn-primary mr-2">Previous</button>
+        <button type="button" class="btn btn-primary btn-info-next">
+          Next
+        </button>
+      </div>
+      <div
+        class="alert alert-danger question-alert d-flex align-items-center justify-content-between d-hide my-3"
+        role="alert"
+      >
+        <span>Do you want to drop any columns? (no/yes)</span>
+        <div>
+          <button type="button" class="btn btn-secondary btn-answer-n">No</button>
+          <button type="button" class="btn btn-dark btn-answer-y">Yes</button>
+        </div>
+      </div>
+      <div
+        class="alert alert-dark second-question-alert d-flex align-items-center justify-content-between d-hide my-3"
+        role="alert"
+      >
+        <span>Enter the column names you want to drop, seprated by commas:</span>
+        <div class="form-check d-flex align-items-center">
+          <input type="text" name="" id="" class="form-control">
+          <button class="border-0"><i class="fa-solid fa-trash py-2 btn-trash"></i></button>
+        </div>
+      </div>
+      <div
+        class="alert alert-danger third-question-alert d-flex align-items-center justify-content-between d-hide my-3"
+        role="alert"
+      >
+        <span>Are all the data types correct? (no/yes)</span>
+        <div>
+          <button type="button" class="btn btn-secondary btn-answer-third-n">No</button>
+          <button type="button" class="btn btn-dark btn-answer-third-y">Yes</button>
+        </div>
+      </div>
+      <div
+        class="alert alert-secondary fourth-question-alert d-flex align-items-center justify-content-between d-hide my-3"
+        role="alert"
+      >
+        <span>Which columns do you want to change the format for? (comma-separated, or type 'exit'to stop):</span>
+        <div class="form-check d-flex align-items-center">
+          <input type="text" name="" id="" class="form-control">
+          <button class="border-0"><i class="fas fa-edit py-2 btn-edit"></i></button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/info_script.js"></script>
+</html>
