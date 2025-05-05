@@ -98,86 +98,116 @@
     >
       <!-- Header -->
       <header
-        class="header d-flex justify-content-center align-items-center"
-        id="Home"
+      class="header d-flex justify-content-center align-items-center"
+      id="Home"
+    >
+      <h1 class="header-title font-weight-bold text-center">
+        MachineLearning
+      </h1>
+      <p class="header-paragraph text-center">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed facilis,
+        ab debitis numquam reprehenderit provident quibusdam maxime dolore
+        asperiores consectetur quasi delectus quas esse autem iusto quaerat
+        voluptate id at.
+      </p>
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
       >
-        <h1 class="header-title font-weight-bold text-center">
-          MachineLearning
-        </h1>
-        <p class="header-paragraph text-center">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed facilis,
-          ab debitis numquam reprehenderit provident quibusdam maxime dolore
-          asperiores consectetur quasi delectus quas esse autem iusto quaerat
-          voluptate id at.
-        </p>
-        <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-        >
-          Get Start
-        </button>
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-class">
-              <div class="modal-header d-flex align-items-center">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                  Modal title
-                </h1>
-                <button
-                  type="button"
-                  class="btn-close bg-transparent border-0"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+        Get Start
+      </button>
+    
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content modal-content-class">
+            <div class="modal-header d-flex align-items-center">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Modal title
+              </h1>
+              <button
+                type="button"
+                class="btn-close bg-transparent border-0"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <i class="fas fa-close btn-close-modal"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4>Lorem ipsum dolor sit amet.</h4>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Perferendis, a.
+              </p>
+              <div class="d-flex flex-column align-items-center">
+                <label
+                  class="btn btn-upload-file d-flex justify-content-center text-black font-semibold rounded-full"
+                  for="fileInput"
+                  ><img
+                    src="images/arrowd.1379433af2a1bae775b8218418ab1bab.svg"
+                    alt="mark"
+                    class="upload-mark"
+                  />Upload Your File</label
                 >
-                  <i class="fas fa-close btn-close-modal"></i>
-                </button>
-              </div>
-              <div class="modal-body">
-                <h4>Lorem ipsum dolor sit amet.</h4>
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Perferendis, a.
-                </p>
-                <div class="d-flex flex-column align-items-center">
-                  <label
-                    class="btn btn-upload-file d-flex justify-content-center text-black font-semibold rounded-full"
-                    for="fileInput"
-                    ><img
-                      src="images/arrowd.1379433af2a1bae775b8218418ab1bab.svg"
-                      alt="mark"
-                      class="upload-mark"
-                    />Upload Your File</label
-                  >
-                  <input type="file" id="fileInput" />
-                  <p id="fileName" class="mt-2 text-center">No file selected</p>
-                  <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                  </div>
-                  <div class="arrow d-hide"><i class="fas fa-arrow-down"></i></div>
-                  <button id="submitToAPI" class="btn btn-primary mt-2 btn-arrow d-hide">
-                    Begin
-                  </button>                  
+                <input type="file" id="fileInput" />
+                <p id="fileName" class="mt-2 text-center">No file selected</p>
+                <div class="progress-container">
+                  <div class="progress-bar" id="progressBar"></div>
                 </div>
+                <div class="arrow d-hide"><i class="fas fa-arrow-down"></i></div>
+                <button
+                  id="submitToAPI"
+                  class="btn btn-primary mt-2 btn-arrow d-hide"
+                >
+                  Begin
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="progress-container">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
-      </header>
+      </div>
+    
+      <!-- ✅ بخش نتایج -->
+      <div
+        id="resultsContainer"
+        class="container my-5"
+        style="display: none; background: #f9f9f9; border-radius: 8px; padding: 20px;"
+      >
+        <h3 class="text-center mb-4">Prediction Results:</h3>
+        <table
+          id="resultsTable"
+          class="table table-bordered text-center table-striped"
+        >
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Prediction</th>
+              <th>Probability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Rows will be added here by JS -->
+          </tbody>
+        </table>
+      </div>
+    
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </header>
+    
       <div class="container">
         <!-- About -->
         <div
