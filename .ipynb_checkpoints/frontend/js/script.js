@@ -99,7 +99,8 @@ document.getElementById('fileInput').addEventListener('change', function () {
 
 window.addEventListener('resize', function () {
     if (window.innerWidth <= 992) {
-        document.querySelector('about').id("About-sub");
+        // document.querySelector('#About').id("About-sub");
+        document.querySelector('.about').id = "About-sub";
     }
 });
 
@@ -129,7 +130,7 @@ document.getElementById("submitToAPI").addEventListener("click", function () {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      data: uploadedDataJson,
+      data: JSON.parse(uploadedDataJson),
       config: config
     })
   })

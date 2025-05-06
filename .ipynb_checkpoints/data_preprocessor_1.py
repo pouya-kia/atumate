@@ -21,7 +21,8 @@ def show_column_info(df):
 
 # حذف ستون‌ها
 def drop_column(df, columns_to_drop: list):
-    df = pd.read_json(df)
+    # df = pd.read_json(df)
+    df = pd.DataFrame(df)
     df_drop = df.copy()
     messages = []
 
@@ -43,7 +44,8 @@ def drop_column(df, columns_to_drop: list):
 
 # تغییر نوع داده‌ی ستون‌ها
 def change_column_type(df, type_map: dict):
-    df = pd.read_json(df)
+    # df = pd.read_json(df)
+    df = pd.DataFrame(df)
     df_type = df.copy()
     messages = []
 

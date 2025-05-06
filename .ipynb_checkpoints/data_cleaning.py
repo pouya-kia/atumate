@@ -2,7 +2,8 @@ import pandas as pd
 from data_preprocessor_1 import drop_column, change_column_type
 
 def get_date_columns(df_type, change_date_structure: bool, date_format_info: dict):
-    df_type = pd.read_json(df_type)
+    # df_type = pd.read_json(df_type)
+    df_type = pd.DataFrame(df_type)
     df_date_format = df_type.copy()
     messages = []
 
@@ -26,7 +27,8 @@ def get_date_columns(df_type, change_date_structure: bool, date_format_info: dic
 
 
 def fill_missing_values(df_date_format, methods: dict):
-    df_date_format = pd.read_json(df_date_format)
+    # df_date_format = pd.read_json(df_date_format)
+    df_date_format = pd.DataFrame(df_date_format)
     filled_df = df_date_format.copy()
     messages = []
 

@@ -3,10 +3,15 @@ import pandas as pd
 from sklearn.preprocessing import QuantileTransformer
 from scipy.stats import kurtosis, skew
 import statsmodels.api as sm
+import json  # فقط اگر بالا import نکردی
 
 # آوتلایر هندلینگ
 def handle_outliers(df, methods: dict):
-    df = pd.read_json(df)
+    if isinstance(df, str):
+        df = json.loads(df)
+    df = pd.DataFrame(df)
+    # df = pd.read_json(df)
+    
     df_outlier = df.copy()
     messages = []
 
@@ -60,7 +65,11 @@ def handle_outliers(df, methods: dict):
 
 # binning ستون‌ها
 def bin_columns(df, bin_info: dict):
-    df = pd.read_json(df)
+    if isinstance(df, str):
+        df = json.loads(df)
+    df = pd.DataFrame(df)
+    # df = pd.read_json(df)
+
     df_bin = df.copy()
     messages = []
 
@@ -81,7 +90,18 @@ def bin_columns(df, bin_info: dict):
 
 # وان-هات انکودینگ
 def one_hot_encoding(df, columns: list):
-    df = pd.read_json(df)
+    # 👇 اگر df به‌جای DataFrame یا list، یه string (JSON string) بود، تبدیلش کن
+    if isinstance(df, str):
+        df = json.loads(df)
+
+    # 👇 حالا به DataFrame تبدیلش کن
+    df = pd.DataFrame(df)
+    # df = pd.read_json(df)
+    ####
+    print("🔍 df type before DataFrame:", type(df))
+    print("🔍 df content preview:", str(df)[:200])
+    ####
+
     df_one_hot = df.copy()
     messages = []
     try:
@@ -97,7 +117,11 @@ def one_hot_encoding(df, columns: list):
 
 # همبستگی‌ها
 def handle_correlation(df, threshold_pearson=0.7, threshold_spearman=0.7):
-    df = pd.read_json(df)
+    if isinstance(df, str):
+        df = json.loads(df)
+    df = pd.DataFrame(df)
+    # df = pd.read_json(df)
+    
     messages = []
 
     try:
