@@ -90,6 +90,10 @@ document.getElementById('fileInput').addEventListener('change', function () {
     uploadedDataJson = JSON.stringify(jsonData);
     console.log("✅ File converted to JSON:", uploadedDataJson);
     alert("✅ File successfully loaded and converted to JSON!");
+
+    const previewData = jsonData.slice(0, 5);
+    localStorage.setItem("previewData", JSON.stringify(previewData));
+    window.open("preview.html", "_blank");
   };
 
   reader.readAsText(file);
