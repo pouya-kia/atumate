@@ -107,6 +107,7 @@ window.addEventListener('resize', function () {
 /////////////////////////////////////
 
 // ✅ Submit JSON + config to API
+
 document.getElementById("submitToAPI").addEventListener("click", function () {
   if (!uploadedDataJson) {
     alert("⛔️ Please upload a file first.");
@@ -114,13 +115,16 @@ document.getElementById("submitToAPI").addEventListener("click", function () {
   }
 
   const config = {
-    drop_columns: ["id"],
-    encoding: ["gender"],
+    drop_columns: ["id"], // این رو بر اساس داده‌ات تنظیم کن
+    encoding: ["gender"], // و این هم همینطور
     model: {
       mode: "supervised",
       type: "logistic",
       target: "target",
-      scaler: "standard"
+      scaler: "standard",
+      params: {
+        max_iter: 500
+      }
     }
   };
 
@@ -130,17 +134,179 @@ document.getElementById("submitToAPI").addEventListener("click", function () {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      data: JSON.parse(uploadedDataJson),
+      data: JSON.parse(uploadedDataJson),  // دقت کن که باید parse بشه!
       config: config
     })
   })
     .then(response => response.json())
     .then(result => {
       console.log("✅ API Response:", result);
-      alert("✅ Pipeline executed! Check console for details.");
+
+      if (!result.data || !Array.isArray(result.data)) {
+        alert("⚠️ No prediction data returned.");
+        return;
+      }
+
+      // ✅ ذخیره نتایج در localStorage برای صفحه جدید
+      localStorage.setItem("predictions", JSON.stringify(result.data));
+
+      // ✅ رفتن به صفحه جدید برای نمایش نتایج
+      window.open("results.html", "_blank");
     })
     .catch(error => {
       console.error("❌ Error calling API:", error);
       alert("❌ Failed to call pipeline API.");
     });
 });
+
+
+
+// document.getElementById("submitToAPI").addEventListener("click", function () {
+//   if (!uploadedDataJson) {
+//     alert("⛔️ Please upload a file first.");
+//     return;
+//   }
+
+//   const config = {
+//     drop_columns: ["id"],  // یا هر ستون اضافی که باید حذف بشه
+//     encoding: ["gender"],  // یا ستون‌هایی که برای encoding لازم داری
+//     model: {
+//       mode: "supervised",
+//       type: "logistic",
+//       target: "target",
+//       scaler: "standard",
+//       params: {
+//         max_iter: 500
+//       }
+//     }
+//   };
+
+//   // 👇 اینجا قرارش بده:
+//   fetch("http://127.0.0.1:8000/api/run-pipeline", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       data: JSON.parse(uploadedDataJson),  // ⚠️ دقت کن که string نیست!
+//       config: config
+//     })
+//   })
+//   .then(response => response.json())
+//   .then(result => {
+//     console.log("✅ API Response:", result);
+//     alert("✅ Pipeline executed! Check console for details.");
+
+//     const resultsContainer = document.getElementById("resultsContainer");
+//     const resultsTableBody = document.querySelector("#resultsTable tbody");
+
+//     resultsTableBody.innerHTML = "";
+
+//     if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+//       const headers = Object.keys(result.data[0]); // گرفتن عنوان ستون‌ها
+  
+//       // نمایش عنوان ستون‌ها در thead
+//       const thead = document.querySelector("#resultsTable thead");
+//       thead.innerHTML = "<tr><th>#</th>" + headers.map(h => `<th>${h}</th>`).join("") + "</tr>";
+  
+//       // نمایش فقط ۵ ردیف اول
+//       result.data.slice(0, 5).forEach((row, index) => {
+//         const tr = document.createElement("tr");
+//         tr.innerHTML = `<td>${index + 1}</td>` + headers.map(h => `<td>${row[h]}</td>`).join("");
+//         resultsTableBody.appendChild(tr);
+//       });
+  
+//       resultsContainer.style.display = "block";
+//     }
+//   })
+//   .catch(error => {
+//     console.error("❌ Error calling API:", error);
+//     alert("❌ Failed to call pipeline API.");
+//   });
+// });
+
+
+
+
+
+
+
+// document.getElementById("submitToAPI").addEventListener("click", function () {
+//   if (!uploadedDataJson) {
+//     alert("⛔️ Please upload a file first.");
+//     return;
+//   }
+
+//   const config = {
+//     drop_columns: ["id"],
+//     encoding: ["gender"],
+//     model: {
+//       mode: "supervised",
+//       type: "logistic",
+//       target: "target",
+//       scaler: "standard",
+//       params: {
+//         max_iter: 500
+//       }
+//     }
+//   };
+
+//   fetch("http://127.0.0.1:8000/api/run-pipeline", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       data: JSON.parse(uploadedDataJson),
+//       config: config
+//     })
+//   })
+//     .then(response => response.json())
+//     .then(result => {
+//       console.log("✅ API Response:", result);
+//       alert("✅ Pipeline executed! Check console for details.");
+
+//       const resultsContainer = document.getElementById("resultsContainer");
+//       const resultsTableBody = document.querySelector("#resultsTable tbody");
+
+//       resultsTableBody.innerHTML = ""; // پاک‌سازی قبلی
+
+//       if (result.data && Array.isArray(result.data) && result.data.length > 0) {
+//         const headers = Object.keys(result.data[0]); // گرفتن عنوان ستون‌ها
+    
+//         // نمایش عنوان ستون‌ها در thead
+//         const thead = document.querySelector("#resultsTable thead");
+//         thead.innerHTML = "<tr><th>#</th>" + headers.map(h => `<th>${h}</th>`).join("") + "</tr>";
+    
+//         // نمایش فقط ۵ ردیف اول
+//         result.data.slice(0, 5).forEach((row, index) => {
+//           const tr = document.createElement("tr");
+//           tr.innerHTML = `<td>${index + 1}</td>` + headers.map(h => `<td>${row[h]}</td>`).join("");
+//           resultsTableBody.appendChild(tr);
+//         });
+    
+//       // if (result.data && Array.isArray(result.data)) {
+//       //   result.data.forEach((row, index) => {
+//       //     const tr = document.createElement("tr");
+//       //     const tdIndex = document.createElement("td");
+//       //     const tdPred = document.createElement("td");
+//       //     const tdProb = document.createElement("td");
+
+//       //     tdIndex.textContent = index + 1;
+//       //     tdPred.textContent = row.prediction ?? "—";
+//       //     tdProb.textContent = row.probability ?? "—";
+
+//       //     tr.appendChild(tdIndex);
+//       //     tr.appendChild(tdPred);
+//       //     tr.appendChild(tdProb);
+//       //     resultsTableBody.appendChild(tr);
+//       //   });
+
+//         resultsContainer.style.display = "block";
+//       }
+//     })
+//     .catch(error => {
+//       console.error("❌ Error calling API:", error);
+//       alert("❌ Failed to call pipeline API.");
+//     });
+// });
